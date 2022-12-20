@@ -1,0 +1,21 @@
+{
+  "name": "token-fox",
+  "version": "1.1.1",
+  "description": "",
+  "main": "./lib/index.js",
+  "typing": "./lib/index.d.ts",
+  "scripts": {
+    "start": "node ./lib/test/index.js",
+    "test": "ts-node ./src/test/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "JWT",
+    "Token"
+  ],
+  "author": "Jefferson Silva",
+  "license": "ISC",
+  "dependencies": {
+    "foxweb-node": "^1.0.7"
+  }
+}
