@@ -1,14 +1,28 @@
-import { GetKey, GetUUID } from "../func/getter";
+import ManagerToken from "../class/Manager";
+import { GetDetails, GetUser, GetUUID } from "../func/getter";
 import Sign from "../func/sign";
 import IsValid, { ValidOrigin } from "../func/verify";
+import { Get } from "../utils/hash";
 
 
 const token = Sign({
     date_expires: 30,
     origin: "*"
 }, {
-    secret: "teste"
+    username: "teste",
+    secret: "teste",
+    detail: {
+        username: "teste"
+    }
 })
 
+const tk = new ManagerToken(token, "teste");
+/**
+ * Gera um novo token em cima do antigo
+ */
+let a = tk.ExpiresAdd(20, "year")
 
-console.log(IsValid(token, "teste"));
+/**
+ * Altera o token dentro de tk para o novo token
+ */
+tk.Refresh(a)

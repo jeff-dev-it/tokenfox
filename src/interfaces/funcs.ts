@@ -7,7 +7,6 @@ export interface ParamHeader {
 }
 
 export interface ParamPayload {
-    occupation?: string
     username?: string
     secret: string | undefined,
     detail?: {[x: string]: any}
@@ -21,7 +20,8 @@ export interface Header {
 }
 
 export interface Payload {
-    occupation?: string
     username?: string
     detail: {[x: string]: any}
 }
+
+export type AtParam = "*"|"pl"|"header"|"details" 

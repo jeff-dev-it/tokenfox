@@ -1,6 +1,5 @@
-import { Header, Payload } from "../interfaces/funcs";
+import { AtParam, Header, Payload } from "../interfaces/funcs";
 import { atob, btoa } from "./b64";
-import * as fox from "foxweb-node";
 
 export function encodeToken(payload: Payload, header: Header, secret: string){
     const encode = new TextEncoder();
@@ -28,18 +27,26 @@ export function decodeToken(token: string, secure: string){
             )))))
         ]
     
-    return secret === secure? [payload, header, secret]: undefined
+    return secret === secure? [payload, header, secret]: "Unauthorized"
 }
 
 
-export function Get(token: string, secure: string, key: string){
+export function Get(token: string, secure: string, key: string, at: AtParam="*"){
     const decoded:any = decodeToken(token, secure);
 
     if(decoded){
         const [payload, header, secret]: any = decoded;
 
-        if(payload[key] && secret === secure) return payload[key]
-        if(payload.detail[key] && secret === secure) return payload.detail[key]
-        if(header[key] && secret === secure) return header[key]
+        if(secret === secret){
+            if(header[key] && (at === "*" || at === "header")) return header[key]
+            if(payload[key] && (at === "*" || at === "pl")) return payload[key]
+            if(payload.detail[key] && (at === "*" || at === "details")) return payload.detail[key]
+        }else{
+            return "unauthorized"
+        }
+    }else{        
+        return "Invalid Token"
     }
+
+    return undefined
 }

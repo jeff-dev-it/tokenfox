@@ -1,15 +1,10 @@
-import { GetKey, GetOccupation, GetUUID, GetUser } from "./func/getter"
 import Sign from "./func/sign";
 import IsValid, { ValidOrigin } from "./func/verify";
+import ManagerToken from "./class/Manager";
 
-export default {
-    Getter: {
-        GetKey,
-        GetOccupation, 
-        GetUUID,
-        GetUser
-    },
+export {
     Sign,
+    ManagerToken,
     IsValid,
     ValidOrigin
 }
