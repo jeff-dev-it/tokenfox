@@ -1,3 +1,4 @@
+import ManagerToken from "./class/Manager"
 declare const fwt: FWT.fwt;
 
 export = fwt
@@ -32,18 +33,27 @@ declare namespace FWT{
         detail: {[x: string]: any}
     }
 
-    interface Getter {
-        GetKey: (token: string, secret: string, key: string) => string
-        GetUUID: (token: string, secret: string) => string
-        GetUser: (token: string, secret: string) => string
-        GetOccupation: (token: string, secret: string) => string
+    interface Manager{
+        GetUsername: ()=> string
+        GetInfo: (key: string)=> string
+        GetUUID: ()=> string
+        Get: (key: string, from: AtParam)=> void
+        SetInfo: (value: object)=> void
+        SetUsername: (value: string)=> void
+        SetOrigin: (value: string)=> void
+        ExpiresAdd: (add: number, type?: date_expires_type)=> void
+        Refresh: (v: string | undefined)=> void
     }
+
     type Sign = (header: ParamHeader, payload: ParamPayload) => string
     type IsValid = (token: string, secret: string) => boolean
     type ValidOrigin = (token: string, secret: string, origin: string) => boolean
 
     interface fwt{
-        Getter: Getter,
+        ManagerToken: {
+            (token: string, secure: string): Manager,
+            new (token: string, secure: string): Manager,
+        },
         Sign: Sign,
         IsValid: IsValid,
         ValidOrigin: ValidOrigin

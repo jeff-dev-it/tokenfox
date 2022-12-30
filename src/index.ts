@@ -2,7 +2,7 @@ import Sign from "./func/sign";
 import IsValid, { ValidOrigin } from "./func/verify";
 import ManagerToken from "./class/Manager";
 
-export {
+export = {
     Sign,
     ManagerToken,
     IsValid,

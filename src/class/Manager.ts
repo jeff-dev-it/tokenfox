@@ -1,14 +1,15 @@
 import ConvertToMs from "../func/convMs";
 import { GetUser, GetDetails, GetUUID} from "../func/getter";
 import { AtParam, date_expires_type } from "../interfaces/funcs";
+import { Manager } from "../interfaces/Manager";
 import { decodeToken, encodeToken, Get } from "../utils/hash";
 
 
-export default class ManagerToken{
+export default class ManagerToken {
     #token: string = "";
     #secure: string = ""
 
-    constructor(token: string, secure: string){
+    constructor(token: string, secure: string) {
         this.tk = token;
         this.sec = secure;
     }
@@ -94,7 +95,7 @@ export default class ManagerToken{
     }
     
       
-    ExpiresAdd(add: number, type: date_expires_type){
+    ExpiresAdd(add: number, type?: date_expires_type){
         const decoded = decodeToken(this.#token, this.#secure);
         if(decoded){
             const [payload, header, secret]: any = decoded;
